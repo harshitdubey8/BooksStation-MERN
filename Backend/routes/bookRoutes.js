@@ -1,12 +1,12 @@
 import express from "express";
-import { Book } from "../models/BookModel";
+import { Book } from "../models/BookModel.js";
 
 const router = express.Router();
 
 //routes
 
 //getting all the books
-router.get("/books", async (request, response) => {
+router.get("/", async (request, response) => {
   try {
     const books = await Book.find({});
 
@@ -22,7 +22,7 @@ router.get("/books", async (request, response) => {
 
 //getting book by id
 
-router.get("/books/:id", async (request, response) => {
+router.get("/:id", async (request, response) => {
   try {
     const { id } = request.params;
     const book = await Book.findById(id);
@@ -37,7 +37,7 @@ router.get("/books/:id", async (request, response) => {
 });
 
 // updating  the book
-router.put("/books/:id", async (request, response) => {
+router.put("/:id", async (request, response) => {
   try {
     if (
       !request.body.title ||
@@ -65,7 +65,7 @@ router.put("/books/:id", async (request, response) => {
 
 //deleting books data
 
-router.delete("/books/:id", async (request, response) => {
+router.delete("/:id", async (request, response) => {
   try {
     const { id } = request.params;
 
@@ -83,7 +83,7 @@ router.delete("/books/:id", async (request, response) => {
 });
 
 //sending books data
-router.post("/books", async (request, response) => {
+router.post("/", async (request, response) => {
   try {
     if (
       !request.body.title ||
@@ -108,3 +108,5 @@ router.post("/books", async (request, response) => {
     response.status(500).send({ message: error.message });
   }
 });
+
+export default router;
